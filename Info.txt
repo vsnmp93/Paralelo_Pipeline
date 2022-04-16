@@ -1,0 +1,15 @@
+Creando proyecto desde cero
+1.- npm install cypress --save-dev
+2.- npx cypress open (para probar si se creo bien)
+3.- Borramos las dos carpetas de Integration (getting-started y advanced-examples)
+4.- Comenzamos a crear los archivos js 
+5.- Configuramos los archivos de cypress.json e index.js(support)
+--------------------------------------------------------------------
+5.- npx cypress run --record --key 1801959b-b6a0-4ca1-be3f-200f0ff77b46
+6.- Creamos un archivo  para .gitignore :  es un archivo de texto que le dice a Git qué archivos o carpetas ignorar en un proyecto.
+    .gitignore
+    Ejemplo de archivos que podemos dejar dentro :
+    node_modules/
+    *.mp4
+    *.jpg
+7.-
