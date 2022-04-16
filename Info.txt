@@ -12,4 +12,17 @@ Creando proyecto desde cero
     node_modules/
     *.mp4
     *.jpg
-7.-
+7.- Luego de crear ese archivo vamos a consola para guardar cambios :
+    git init
+    git status
+    git add .
+    git s
+    git commit -m "Iniciando proyecto de Paralelo"
+8.- Vamos a GitHub y creamos un nuevo repositorio
+    click en <> code
+    Bajamos y encontraremos : or push an existing repository from teh command line
+    copiamos y pegamos la primera línea la pegamos en la consola de vcode, luego la segunda y tercera.
+    La segunda y tercera debemos cambiar la palabra margin  por master, quedaría así :
+    git branch -M master
+    git push -u origin master
+    hacemos click nuevamente en <> code y veremos las carpetas creadas con éxito (deben ser las que estan en vcode).
