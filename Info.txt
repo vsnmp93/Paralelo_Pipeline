@@ -26,3 +26,30 @@ Creando proyecto desde cero
     git branch -M master
     git push -u origin master
     hacemos click nuevamente en <> code y veremos las carpetas creadas con éxito (deben ser las que estan en vcode).
+9.- Comenzamos a integrar a Jenkins el proyecto o repositorio recién creado.
+10.- Nos logueamos en Jenkins
+11.- Vamos a consola y :
+     git s
+     git add .
+     git commit -m "Cambio nuevo test" (en el caso de que se añadan nuevos archivoso cuando ya se añadan todos y esté listo el proyecto)
+     y luego :
+     git push
+12.- Vamos a jenkins y hacemos clic en 1->Nueva Tarea 2-> ingresas el nombre del proyecto(puede ser el mismo del repositorio)
+     3-> Crear un proyecto de estilo libre (puede variar en el caso de que sea un proyecto de trabajo real)
+     4.->Escribimos la descripción de nuestro proyecto. 5-> Hacemos click en Git (Configurar el origen del código fuente).
+     6-> Vamos a GitHub donde está abierto el repo y hacemos click en el botón verde 6->Code 7-> en HTTPS copiamos la url de abajo.
+     8-> Lo pegamos en Repository URL (Jenkins).
+     9-> En credentials 10->Add 11->username : vsnmp 12-> password : .......... 13->Add
+     14-> Credentials seleccionamos el usuario creado (vsnmp) 15->(Fijarse que la rama sea master)
+     16-> Por ahora vamos a ejecutar desde una línea de comandos de windows  16-> Ejecutar  17->Ejecutar un comando de windows
+     18-> npm install (en el cuadro de texto, para que ejecute todos los paquetes del repo y lo instale)
+     19-> Añadir un nuevo paso 20->Ejecutar un comando de windows 
+     21-> Pegar la clave que nos dieron al inicio : npx cypress run --record --key 1801959b-b6a0-4ca1-be3f-200f0ff77b46
+     22-> Guardar 
+13.- Vas a tu panel de control y visualizarás el proyecto creado.
+14.- Hcemos click en play del proyecto ubicado a mano derecha, para ver que todo corre bien.
+15.- Vamos a mano izquierda y en Estado del ejecutor de construcciones 
+     Hcemos click en Cypress_pipeline(o en el nombre del proyecto creado)
+     hacemos click en la fecha que marca el proyecto y luego en -> Console Output
+
+
