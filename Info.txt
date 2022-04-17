@@ -70,12 +70,13 @@ Creando proyecto desde cero
     llega a los usuarios.
     La definición de un pipeline Jenkins, se escribe en un fichero de texto (llamado Jenkinsfile) que se puede subir al repositorio junto con el resto del proyecto de software.
     ->Creamos un archivo en el proyecto -> Jenkinsfile -> y añadimos este código (cambiando algunos comandos y ruta) :
-    pipeline {
+   pipeline {
     agent any
     tools {nodejs "node"}
+    stages {
 
     stage('Cypress Parallel Test Suite'){
-        paralel{
+        parallel{
             stage('Slave 1'){
                 agent{
                     label "Agent2_1"
@@ -84,16 +85,15 @@ Creando proyecto desde cero
                     git url: 'https://github.com/vsnmp93/Paralelo_Pipeline.git'
                     bat 'npm install'
                     bat 'npm update'
-                    bat 'npx cypress run --record --key 1801959b-b6a0-4ca1-be3f-200f0ff77b46'
+                    bat 'npx cypress run --record --key 1801959b-b6a0-4ca1-be3f-200f0ff77b46 --parallel'
                 }
             }
         }
     }
-
     }
-}
+   }
          Explicación :
-           paralel{ = vas a hacer un ciclo Paralelo
+           parallel{ = vas a hacer un ciclo Paralelo
            la máquina que vas a disparar : 
             stage('Slave 1'){
                 agent{
@@ -123,7 +123,13 @@ Creando proyecto desde cero
      -> git push
      -> git s
      -> Refrescamos el repositorio para ver los cambios
-     
+     -> npx cypress open (consola vscode)
+     -> runs en cypress  en dashboard
+     -> Vamos a Panel de Control y echamos a correr el Jenkinsfile_curso (haciendo clic en el nombre) -> Contruir ahora
+     ->Luego hacemos clic en la fecha que está al lado izquierdo .
+
+
+
 
 
      

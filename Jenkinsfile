@@ -1,9 +1,10 @@
 pipeline {
     agent any
     tools {nodejs "node"}
+    stages {
 
     stage('Cypress Parallel Test Suite'){
-        paralel{
+        parallel{
             stage('Slave 1'){
                 agent{
                     label "Agent2_1"
@@ -28,7 +29,7 @@ pipeline {
                 }
             }
         
-            stage('Slave 3'){
+           stage('Slave 3'){
                 agent{
                     label "Agent2_3"
                 }
@@ -39,7 +40,6 @@ pipeline {
                     bat 'npx cypress run --record --key 1801959b-b6a0-4ca1-be3f-200f0ff77b46 --parallel'
                 }
             }
-            
       
             stage('Slave 4'){
                 agent{
@@ -68,3 +68,4 @@ pipeline {
     }
 
     }
+}
