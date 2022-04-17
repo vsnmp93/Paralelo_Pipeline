@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    tools {nodejs "Nodejs"}
+    tools {node "Node"}
     stages {
 
     stage('Cypress Parallel Test Suite'){
