@@ -50,6 +50,88 @@ Creando proyecto desde cero
 14.- Hcemos click en play del proyecto ubicado a mano derecha, para ver que todo corre bien.
 15.- Vamos a mano izquierda y en Estado del ejecutor de construcciones 
      Hcemos click en Cypress_pipeline(o en el nombre del proyecto creado)
-     hacemos click en la fecha que marca el proyecto y luego en -> Console Output
+     hacemos click en la fecha que marca el proyecto y luego en -> Console Output (se revisa el estado)
+     vamos a consola de vcode y escribimos :
+     npx cypress open 
+     vamos a cypress (web que nos lanza)
+     luego a Runs y hacemos click en la última ejecución y revisamos nuestros test (dashboard)
+16.-Creando nuestra máquina virtual (Agent)
+     ->Panel de Control ->Administrador ->Administrar Jenkins -> Administrar Nodos ->Nuevo nodo -> Nombre del nodo : Agent2
+     ->Permanent Agent ->Create ->of executors(número de máquinas que van a correr) : 5 -> Labels :  Agent2_1 Agent2_2 Agent2_3 Agent2_4 Agent2_5 (basado en los o of executors)
+     ->Usar : Utilizar este nodo tanto como sea posible -> Availability : Keep this agent online as much as possible.
+     ->Localización de herramientas ->Añadir Nombre->(Git) Default ->Directorio : C:\Program Files\Git\bin
+     ->Añadir ->Nombre : (NodeJs) Node ->Directorio : C:\Program Files\nodejs ->Guardar
+     En el caso de que el nodo quede con X, deben ir al nodo ->Configuraciones ->le das click en ese Warning (activar el botón TSP) y le dan en ->Guardar
+     Descargas el agent.jar y lo copias en el disco duro y lo desconprimes.
+
+17.-Generando el Archivo Jenkinsfile(Pipeline) ,Un pipeline Jenkins es un conjunto de plugins que soporta la implementación e integración de pipelines 
+    (tuberías) de despliegue continuo en Jenkins.
+    Un pipeline es un conjunto de instrucciones del proceso que siga una aplicación desde el repositorio de control de versiones hasta que
+    llega a los usuarios.
+    La definición de un pipeline Jenkins, se escribe en un fichero de texto (llamado Jenkinsfile) que se puede subir al repositorio junto con el resto del proyecto de software.
+    ->Creamos un archivo en el proyecto -> Jenkinsfile -> y añadimos este código (cambiando algunos comandos y ruta) :
+    pipeline {
+    agent any
+    tools {nodejs "node"}
+
+    stage('Cypress Parallel Test Suite'){
+        paralel{
+            stage('Slave 1'){
+                agent{
+                    label "Agent2_1"
+                }
+                steps {
+                    git url: 'https://github.com/vsnmp93/Paralelo_Pipeline.git'
+                    bat 'npm install'
+                    bat 'npm update'
+                    bat 'npx cypress run --record --key 1801959b-b6a0-4ca1-be3f-200f0ff77b46'
+                }
+            }
+        }
+    }
+
+    }
+}
+         Explicación :
+           paralel{ = vas a hacer un ciclo Paralelo
+           la máquina que vas a disparar : 
+            stage('Slave 1'){
+                agent{
+                    label "Agent2_1"  = el agente que va a correr
+                }
+                steps {
+                    git url: 'https://github.com/vsnmp93/Paralelo_Pipeline.git'  = el repositorio en el que vamos a trabajar y asi descarga la url
+                    bat 'npm install'   = instala todo lo que necesites , cypress y librerias 
+                    bat 'npm update'  = actualiza si es necesario
+                    bat 'npx cypress run --record --key 1801959b-b6a0-4ca1-be3f-200f0ff77b46 --parallel' = le decimos a que proyecto debe ir y correr añadir el --parallel
+                }
+
+    En el caso de que sean mas agentes, se copian el agent anterior y se modifica el label.
+
+18.- Creamos una nueva tarea :
+     ->Nueva tarea -> nombre : Jenkinsfile_curso ->Pipeline ->Ok  -> Agregamos la descripción ->Pipeline definition 
+     ->Pipeline script from SCM -> SCM : Git ->Repositories ->Repository URL (vamos al repositorio y en code copiamos la url)
+     ->Credential : vsnmp.... ->Branch to build: */master -> ScriptPath : Jenkinsfile  , le diremos que mi script va a ser un archivo Jenkinsfile.
+     ->Guardar
+     Vamos al panel de control y vemos el archivo recién creado Jenkinsfile_curso .
+     Revisar si el agent2 o agente está ok (corriendo) en ->Administrar Jenkins -> Administrar nodos (ahí se verán los agent)
+     Actualizar nuestro git por consola (cambios y archivo nuevo creado de Jenkinsfile)
+     -> git s
+     -> git add .
+     -> git commit -m "Agregando el archivo Jenkinsfile super importante Paralelos"
+     -> git s
+     -> git push
+     -> git s
+     -> Refrescamos el repositorio para ver los cambios
+     
+
+
+     
+
+     
+     
+
+
+
 
 
